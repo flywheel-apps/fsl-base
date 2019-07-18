@@ -7,18 +7,19 @@ RUN echo deb http://neurodeb.pirsquared.org data main contrib non-free >> /etc/a
 RUN echo deb http://neurodeb.pirsquared.org xenial main contrib non-free >> /etc/apt/sources.list.d/neurodebian.sources.list
 RUN apt-get update \
     && apt-get install -y \
+        bc \
+        bsdtar \
+        curl \
         fsl-5.0-complete \
-        zip \
         jq \
         lsb-core \
-        curl \
-        bsdtar \
         python-pip \
         python3-pip \
-        rename
+        rename \
+        zip
 
 # Make directory for flywheel spec (v0)
-ENV FLYWHEEL /flywheel/v0
+ENV FLYWHEEL=/flywheel/v0
 RUN mkdir -p ${FLYWHEEL}
 
 # Set ENV variables
