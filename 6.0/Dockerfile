@@ -12,14 +12,14 @@ RUN apt-get update \
         python-pip \
         python3-pip \
         rename \
+        wget \
         zip \
         unzip
 
 #############################################
 # Download and install FSL 6.0.1 (see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation/Linux)
 # The installation script, fslinstaller.py, needs Python 2.7 to install.
-COPY fslinstaller.py /tmp/
-RUN apt-get install -y python /tmp/fslinstaller.py -d /usr/share/6.0 -q
+RUN wget -P /tmp/ https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py &&  mkdir -p /usr/share/fsl/ && python /tmp/fslinstaller.py -d /usr/share/fsl/6.0 -q
 
 # Configure FSL environment
 ENV FSLDIR=/usr/share/fsl/6.0
