@@ -17,9 +17,15 @@ RUN apt-get update \
         unzip
 
 #############################################
-# Download and install FSL 6.0.1 (see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation/Linux)
+# Download and install FSL 6.0.1 
+# (see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation/Linux)
 # The installation script, fslinstaller.py, needs Python 2.7 to install.
-RUN wget -P /tmp/ https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py &&  mkdir -p /usr/share/fsl/ && python /tmp/fslinstaller.py -d /usr/share/fsl/6.0 -q
+# NOTE: Image almost 10 GB!!!!  This installation of FSL includes all of its
+# dependencies... Thus making the docker images almost 10 GB.
+# Future Developments may include a "Slimmed" FSL 6.0 docker image
+RUN wget -P /tmp/ https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py \ 
+&&  mkdir -p /usr/share/fsl/ \ 
+&& python /tmp/fslinstaller.py -d /usr/share/fsl/6.0 -q
 
 # Configure FSL environment
 ENV FSLDIR=/usr/share/fsl/6.0
@@ -33,7 +39,8 @@ ENV FSLWISH=/usr/bin/wish
 ENV FSLOUTPUTTYPE=NIFTI_GZ
 
 # Save docker env to json
-RUN python -c 'import os, json; f=open("/tmp/gear_environ.json", "w"); json.dump(dict(os.environ), f)'
+RUN python -c \
+'import os, json; f=open("/tmp/gear_environ.json", "w"); json.dump(dict(os.environ), f)'
 
 #############################################
 # Make directory for flywheel spec (v0)
