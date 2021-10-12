@@ -1,10 +1,12 @@
 FROM neurodebian:xenial
 MAINTAINER Flywheel <support@flywheel.io>
 
+RUN { \
+	echo 'deb http://neurodeb.pirsquared.org data main contrib non-free'; \
+    echo 'deb http://neurodeb.pirsquared.org xenial main contrib non-free'; \
+} > /etc/apt/sources.list.d/neurodebian.sources.list
 
-# Install dependencies
-RUN echo deb http://neurodeb.pirsquared.org data main contrib non-free >> /etc/apt/sources.list.d/neurodebian.sources.list
-RUN echo deb http://neurodeb.pirsquared.org xenial main contrib non-free >> /etc/apt/sources.list.d/neurodebian.sources.list
+
 RUN apt-get update \
     && apt-get install -y \
         bc \
@@ -13,10 +15,17 @@ RUN apt-get update \
         fsl-5.0-complete \
         jq \
         lsb-core \
+        alien=8.95 \
+        debhelper=9.20160115ubuntu3 \
         python-pip \
         python3-pip \
         rename \
         zip
+
+#Remove expired LetsEncrypt cert
+RUN rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt && \
+      update-ca-certificates
+ENV REQUESTS_CA_BUNDLE "/etc/ssl/certs/ca-certificates.crt"
 
 # Make directory for flywheel spec (v0)
 ENV FLYWHEEL=/flywheel/v0
