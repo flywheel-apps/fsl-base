@@ -26,7 +26,7 @@ RUN apt-get update \
 COPY fslinstaller.py /tmp/fslinstaller.py
 
 RUN mkdir -p /usr/share/fsl/6.0 && \
-    python /tmp/fslinstaller.py --fslversion=6.0.4 -d /usr/share/fsl6/6.0 -q
+    python /tmp/fslinstaller.py --fslversion=6.0.4 -d /usr/share/fsl/6.0 -q
 
 # Configure FSL environment
 ENV FSLDIR=/usr/share/fsl/6.0
