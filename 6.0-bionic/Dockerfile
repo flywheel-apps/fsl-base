@@ -25,7 +25,7 @@ RUN apt-get update \
 # Future Developments may include a "Slimmed" FSL 6.0 docker image
 COPY fslinstaller.py /tmp/fslinstaller.py
 
-RUN mkdir -p /usr/share/fsl/6.0 && \
+RUN mkdir -p /usr/share/fsl && \
     python /tmp/fslinstaller.py --fslversion=6.0.4 -d /usr/share/fsl/6.0 -q
 
 # Configure FSL environment
