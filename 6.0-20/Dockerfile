@@ -5,12 +5,9 @@ MAINTAINER Flywheel <support@flywheel.io>
 RUN apt-get update \
     && apt-get install -y \
         bc \
-        bsdtar \
         curl \
         jq \
         lsb-core \
-        python-pip \
-        python3-pip \
         rename \
         wget \
         zip \
