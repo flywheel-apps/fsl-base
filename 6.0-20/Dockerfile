@@ -24,6 +24,7 @@ RUN apt update \
 # dependencies... Thus making the docker images almost 10 GB.
 # Future Developments may include a "Slimmed" FSL 6.0 docker image
 COPY fslinstaller.py /tmp/fslinstaller.py
+RUN mkdir -p /user/share/fsl
 RUN python2 /tmp/fslinstaller.py --fslversion=6.0.4 -d /usr/share/fsl/6.0 -q
 
 # Configure FSL environment
