@@ -4,8 +4,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 
 # Install dependencies
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt update \
+    && apt install -y \
+        python2 \
         bc \
         curl \
         jq \
