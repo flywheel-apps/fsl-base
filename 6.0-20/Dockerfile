@@ -1,5 +1,7 @@
 FROM ubuntu:focal
 MAINTAINER Flywheel <support@flywheel.io>
+ENV DEBIAN_FRONTEND noninteractive
+
 
 # Install dependencies
 RUN apt-get update \
