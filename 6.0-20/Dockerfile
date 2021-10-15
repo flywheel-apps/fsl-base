@@ -39,7 +39,7 @@ ENV FSLWISH=/usr/bin/wish
 ENV FSLOUTPUTTYPE=NIFTI_GZ
 
 # Save docker env to json
-RUN python -c \
+RUN python2 -c \
 'import os, json; f=open("/tmp/gear_environ.json", "w"); json.dump(dict(os.environ), f)'
 
 #############################################
