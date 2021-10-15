@@ -1,4 +1,4 @@
-FROM ubuntu:fossa
+FROM ubuntu:focal
 MAINTAINER Flywheel <support@flywheel.io>
 
 # Install dependencies
