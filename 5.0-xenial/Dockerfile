@@ -1,6 +1,8 @@
 FROM neurodebian:xenial
 # Xenial is 16
 MAINTAINER Flywheel <support@flywheel.io>
+ENV DEBIAN_FRONTEND noninteractive
+
 
 RUN { \
 	echo 'deb http://neurodeb.pirsquared.org data main contrib non-free'; \
@@ -13,9 +15,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
       update-ca-certificates
 
 ENV REQUESTS_CA_BUNDLE "/etc/ssl/certs/ca-certificates.crt"
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt-get update -y && \
+    apt-get install -y python3.7 python3-pip && \
+        rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get update \
-    && apt-get install -y \
+RUN python3.7 -m pip install -U pip && \
+    python3.7 -m pip install virtualenv && \
+    virtualenv -p /usr/bin/python3.7 venv && \
+    . venv/bin/activate && \
+    pip install --upgrade pip && \
+    apt-get update &&\
+    apt-get install -y \
         bc \
         bsdtar \
         curl \
@@ -24,11 +37,8 @@ RUN apt-get update \
         lsb-core \
         alien=8.95 \
         debhelper=9.20160115ubuntu3 \
-        python-pip \
         rename \
         zip
-
-RUN curl -fsSL -o- https://bootstrap.pypa.io/pip/3.5/get-pip.py | python3.5
 
 # Make directory for flywheel spec (v0)
 ENV FLYWHEEL=/flywheel/v0

@@ -1,5 +1,4 @@
 FROM neurodebian:bionic
-# bionic is 18
 MAINTAINER Flywheel <support@flywheel.io>
 ENV DEBIAN_FRONTEND noninteractive
 
