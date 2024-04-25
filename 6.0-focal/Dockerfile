@@ -16,7 +16,8 @@ RUN apt-get update \
         wget \
         zip \
         unzip \
-        apt-utils
+        apt-utils \
+    && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
 
 #############################################
 # Download and install FSL 6.0.1 
@@ -26,8 +27,14 @@ RUN apt-get update \
 # dependencies... Thus making the docker images almost 10 GB.
 # Future Developments may include a "Slimmed" FSL 6.0 docker image
 RUN wget -P /tmp/ https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py \ 
-  &&  mkdir -p /usr/share/fsl/ \
-  && python3 /tmp/fslinstaller.py -d /usr/share/fsl/6.0
+&&  mkdir -p /usr/share/fsl/ \
+&& python3 /tmp/fslinstaller.py -d /usr/share/fsl/6.0 \
+&& rm -fr /usr/share/fsl/6.0/bin/fslview* \
+    /usr/share/fsl/6.0/bin/FSLeyes \
+    /usr/share/fsl/6.0/bin/fsleyes \
+    /usr/share/fsl/6.0/src \
+    /usr/share/fsl/6.0/doc \
+    /usr/share/fsl/6.0/extras/src
 
 # Configure FSL environment
 ENV FSLDIR=/usr/share/fsl/6.0
