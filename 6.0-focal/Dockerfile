@@ -29,9 +29,8 @@ RUN apt-get update \
 RUN wget -P /tmp/ https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py \ 
 &&  mkdir -p /usr/share/fsl/ \
 && python3 /tmp/fslinstaller.py -d /usr/share/fsl/6.0 \
-&& rm -fr /usr/share/fsl/6.0/bin/fslview* \
-    /usr/share/fsl/6.0/bin/FSLeyes \
-    /usr/share/fsl/6.0/bin/fsleyes \
+&& rm -fr /usr/share/fsl/6.0/bin/fsleyes \
+    /usr/share/fsl/6.0/lib/python3.11/site-packages/fsleyes \
     /usr/share/fsl/6.0/src \
     /usr/share/fsl/6.0/doc \
     /usr/share/fsl/6.0/extras/src
